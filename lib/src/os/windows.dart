@@ -2,12 +2,11 @@ import 'dart:io';
 import 'os_spec.dart';
 
 class Windows extends OsSpecifications {
-  String appDirPath = '';
   static const String keeperName = 'keeper.exe';
   static const String hideKeeperName = 'start_keeper.exe';
-  static const String storageupName = 'StorageUp.lnk';
+  static const String storageupName = 'storageup.exe';
   static const String updateName = 'ups_update.exe';
-  static const String hideUpdateName = 'start_ups_update.exe';
+  static const String hideUpdateName = 'start_ups_update.vbs';
 
   Windows() {
     String result = getAppLocation();
@@ -45,12 +44,7 @@ class Windows extends OsSpecifications {
 
   @override
   String getAppLocation() {
-    var result = Process.runSync('reg', [
-      'query',
-      'HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp',
-      '/v',
-      'DirPath'
-    ]);
+    var result = Process.runSync('reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
     if (result.exitCode == 0) {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.substring(0, dirPath.length - 4);
@@ -61,10 +55,7 @@ class Windows extends OsSpecifications {
 
   @override
   String setVersion(String version) {
-    Process.runSync(
-        'reg',
-        'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
-            .split(' '));
+    Process.runSync('reg', 'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'.split(' '));
     Process.runSync(
         'reg',
         'add HKCU${Platform.pathSeparator}SOFTWARE${Platform.pathSeparator}Microsoft${Platform.pathSeparator}Windows${Platform.pathSeparator}CurrentVersion${Platform.pathSeparator}Uninstall${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
@@ -74,34 +65,33 @@ class Windows extends OsSpecifications {
   }
 
   @override
-  void startProcess(String processName, bool hide,
-      [List<String> args = const []]) {
+  void startProcess(String processName, bool hide, [List<String> args = const []]) async {
     if (processName != 'storageup') {
-      Process.runSync(
-          'start /min $appDirPath${Platform.pathSeparator}${getAppName(processName, hide)}',
-          args, runInShell: true);
+      if (processName == 'ups_update') {
+        Process.run('start /min', ['cscript','${appDirPath}start_ups_update.vbs', appDirPath], runInShell: true);
+      } else {
+        Process.runSync('start $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
+      }
     } else {
-      Process.run(
-          '$appDirPath${Platform.pathSeparator}${getAppName(processName, hide)}',
-          args);
+      Process.run('start $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
     }
   }
 
   @override
   int registerAppInOs(String appDirPath) {
-    var result = Process.runSync('.${Platform.pathSeparator}install.bat', [
-      '$appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
-    ]);
+    var result = Process.runSync(
+        'start',
+        '/min cscript C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
+            .split(' '),
+        runInShell: true);
     return result.exitCode;
   }
 
   @override
   int createShortcuts(String appDirPath) {
-    var result = Process.runSync('powershell.exe', [
-      'cscript',
-      '.${Platform.pathSeparator}create_shortcuts.vbs',
-      '$appDirPath${Platform.pathSeparator}StorageUp'
-    ]);
+    var result = Process.runSync('start /min cscript',
+        ['C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}create_shortcuts.vbs', '$appDirPath${Platform.pathSeparator}StorageUp'],
+        runInShell: true);
     return result.exitCode;
   }
 
