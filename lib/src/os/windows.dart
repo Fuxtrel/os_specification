@@ -82,10 +82,11 @@ class Windows extends OsSpecifications {
   @override
   int registerAppInOs(String appDirPath) {
     var result = Process.runSync(
-        'start',
-        '/min cscript C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
+        'cscript',
+        'C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
             .split(' '),
         runInShell: true);
+    print(result.stderr);
     return result.exitCode;
   }
 
