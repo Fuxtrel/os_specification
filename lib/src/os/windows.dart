@@ -68,7 +68,7 @@ class Windows extends OsSpecifications {
   void startProcess(String processName, bool hide, [List<String> args = const []]) async {
     if (processName != 'storageup') {
       if (processName == 'ups_update') {
-        var result = Process.runSync('start /min', ['cscript', '${appDirPath}start_ups_update.vbs', appDirPath], runInShell: true);
+        var result = Process.runSync('cscript', ['${appDirPath}start_ups_update.vbs', appDirPath], runInShell: true);
         print(result.stderr);
       } else {
         var result = Process.runSync('start /min cscript $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
@@ -82,11 +82,10 @@ class Windows extends OsSpecifications {
   @override
   int registerAppInOs(String appDirPath) {
     var result = Process.runSync(
-        'cscript',
+        'start /min cscript',
         'C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
             .split(' '),
         runInShell: true);
-    print(result.stderr);
     return result.exitCode;
   }
 
