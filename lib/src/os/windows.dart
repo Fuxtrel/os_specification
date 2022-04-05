@@ -72,7 +72,7 @@ class Windows extends OsSpecifications {
         print(result.stderr);
         print(result.stdout);
       } else {
-        var result = Process.runSync('start /min cscript $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
+        var result = Process.runSync('start /min $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
         print(result.stderr);
       }
     } else {
