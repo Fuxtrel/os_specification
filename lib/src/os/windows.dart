@@ -78,7 +78,7 @@ class Windows extends OsSpecifications {
         print(result.stderr);
       }
     } else {
-      Process.run('start "$appDirPath${getAppName(processName, hide)}"', args, runInShell: true);
+      Process.run('start $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
     }
   }
 
