@@ -68,11 +68,13 @@ class Windows extends OsSpecifications {
   void startProcess(String processName, bool hide, [List<String> args = const []]) async {
     if (processName != 'storageup') {
       if (processName == 'ups_update') {
-        var result = Process.runSync('start', ['/min', 'cscript', '"${appDirPath}start_ups_update.vbs"', "appDirPath"], runInShell: true);
+        String cmd = 'start /min cscript ${appDirPath}start_ups_update.vbs $appDirPath';
+        print(cmd);
+        var result = Process.runSync(cmd, [], runInShell: true);
         print(result.stderr);
         print(result.stdout);
       } else {
-        var result = Process.runSync('start /min "$appDirPath${getAppName(processName, hide)}"', args, runInShell: true);
+        var result = Process.runSync('start /min $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
         print(result.stderr);
       }
     } else {
