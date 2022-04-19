@@ -20,8 +20,8 @@ class Linux extends OsSpecifications {
   }
 
   @override
-  String setVersion(String version) {
-    File(appDirPath).writeAsString(version);
+  String setVersion(String version, String filePath) {
+    File(filePath).writeAsString(version);
     return version;
   }
 

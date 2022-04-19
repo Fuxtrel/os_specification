@@ -2,15 +2,8 @@ import 'package:os_specification/os_specification.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // group('A group of tests', () {
-  //   final awesome = Awesome();
-  //
-  //   setUp(() {
-  //     // Additional setup goes here.
-  //   });
-  //
-  //   test('First Test', () {
-  //     expect(awesome.isAwesome, isTrue);
-  //   });
-  // });
+  var os = Windows();
+  os.startProcess('storageup', false);
+  print('sdvcsdc');
+  return;
 }

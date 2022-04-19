@@ -54,13 +54,13 @@ class Windows extends OsSpecifications {
   }
 
   @override
-  String setVersion(String version) {
+  String setVersion(String version, String filePath) {
     Process.runSync('reg', 'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'.split(' '));
     Process.runSync(
         'reg',
         'add HKCU${Platform.pathSeparator}SOFTWARE${Platform.pathSeparator}Microsoft${Platform.pathSeparator}Windows${Platform.pathSeparator}CurrentVersion${Platform.pathSeparator}Uninstall${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
             .split(' '));
-    File(appDirPath).writeAsString(version);
+    File(filePath).writeAsString(version);
     return version;
   }
 

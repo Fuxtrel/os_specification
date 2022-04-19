@@ -7,7 +7,7 @@ abstract class OsSpecifications {
 
   String getAppLocation();
 
-  String setVersion(String version);
+  String setVersion(String version, String filePath);
 
   int registerAppInOs(String appDirPath);
 
