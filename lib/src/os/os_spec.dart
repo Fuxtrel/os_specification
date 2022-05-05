@@ -3,7 +3,7 @@ abstract class OsSpecifications {
 
   int killProcess(String processName);
 
-  void startProcess(String processName, bool hide, [List<String> args = const []]);
+  void startProcess(String processName, [List<String> args = const []]);
 
   String getAppLocation();
 

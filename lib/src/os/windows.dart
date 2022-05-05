@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'os_spec.dart';
+import 'package:win_api/win_api.dart';
 
 class Windows extends OsSpecifications {
   static const String keeperName = 'keeper.exe';
@@ -7,6 +8,8 @@ class Windows extends OsSpecifications {
   static const String storageupName = 'storageup.exe';
   static const String updateName = 'ups_update.exe';
   static const String hideUpdateName = 'start_ups_update.vbs';
+
+  var win_api = WinApi();
 
   Windows() {
     String result = getAppLocation();
@@ -65,20 +68,17 @@ class Windows extends OsSpecifications {
   }
 
   @override
-  void startProcess(String processName, bool hide, [List<String> args = const []]) async {
-    if (processName != 'storageup') {
-      if (processName == 'ups_update') {
-        String cmd = 'start /min cscript ${appDirPath}start_ups_update.vbs $appDirPath';
-        print(cmd);
-        var result = Process.runSync(cmd, [], runInShell: true);
-        print(result.stderr);
-        print(result.stdout);
-      } else {
-        var result = Process.runSync('start /min $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
-        print(result.stderr);
-      }
-    } else {
-      Process.run('start $appDirPath${getAppName(processName, hide)}', args, runInShell: true);
+  void startProcess(String processName, [List<String> args = const []]) async {
+    switch(processName){
+      case 'update':
+        win_api.startProcess('${appDirPath}ups_update.exe', args);
+        break;
+      case 'keeper':
+        win_api.startProcess('${appDirPath}keeper.exe', args);
+        break;
+      case 'storageup':
+        win_api.startProcess('${appDirPath}storageup.exe', args);
+        break;
     }
   }
 

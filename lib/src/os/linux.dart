@@ -26,14 +26,13 @@ class Linux extends OsSpecifications {
   }
 
   @override
-  void startProcess(String processName, bool hide,
-      [List<String> args = const []]) {
-    if (hide) {
-      Process.runSync(
-          'nohup', ['$appDirPath${Platform.pathSeparator}$keeperName &']);
-    } else {
-      Process.runSync('$appDirPath${Platform.pathSeparator}$keeperName', []);
-    }
+  void startProcess(String processName, [List<String> args = const []]) {
+    //TODO
+    // if (hide) {
+    //   Process.runSync('nohup', ['$appDirPath${Platform.pathSeparator}$keeperName &']);
+    // } else {
+    //   Process.runSync('$appDirPath${Platform.pathSeparator}$keeperName', []);
+    // }
   }
 
   //TODO: create method, registers app in linux

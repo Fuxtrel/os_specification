@@ -7,8 +7,11 @@ environment:
   sdk: '>=2.16.0 <3.0.0'
 
 
-# dependencies:
-#   path: ^1.8.0
+dependencies:
+  path: ^1.8.0
+  win_api:
+    git:
+      url: ssh://git@gitlab.upstorage.net:2289/a.som/win_api_module_cpp.git
 
 dev_dependencies:
   lints: ^1.0.1
