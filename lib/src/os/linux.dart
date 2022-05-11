@@ -47,12 +47,12 @@ class Linux extends OsSpecifications {
   int createShortCut(
     String pathToExe,
     String pathToShortcut, {
-    List<String>? args = const [],
-    String? description = '',
-    int? showMode = ShowMode.NORMAL,
-    String? workingDir = '',
-    String? iconPath = '',
-    int? iconIndex = 0,
+    List<String> args = const [],
+    String description = '',
+    int showMode = ShowMode.NORMAL,
+    String workingDir = '',
+    String iconPath = '',
+    int iconIndex = 0,
   }) {
     // TODO: implement createShortcuts
     throw UnimplementedError();

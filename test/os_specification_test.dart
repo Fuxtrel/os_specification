@@ -4,16 +4,16 @@ import 'package:test/test.dart';
 void main() {
   group('Starting processes', () {
     var os = Windows();
-    os.appDirPath = 'C:\\StorageUp\\Storage Up\\';
+    os.appDirPath = 'C:\\StorageUp\\StorageUp\\';
 
     setUp(() {});
 
-    test('Start storageup', () {
-      os.startProcess('storageup');
-    });
-
-    test('Start ups_update', () {
-      os.startProcess('update');
-    });
+    // test('Start storageup', () {
+    //   os.startProcess('storageup');
+    // });
+    //
+    // test('Start ups_update', () {
+    //   os.startProcess('update');
+    // });
   });
 }
