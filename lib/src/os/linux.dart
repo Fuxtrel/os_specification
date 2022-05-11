@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:win_api/win_api.dart';
 import 'os_spec.dart';
 
 class Linux extends OsSpecifications {
@@ -43,7 +44,16 @@ class Linux extends OsSpecifications {
   }
 
   @override
-  int createShortcuts(String appDirPath) {
+  int createShortCut(
+    String pathToExe,
+    String pathToShortcut, {
+    List<String>? args = const [],
+    String? description = '',
+    int? showMode = ShowMode.NORMAL,
+    String? workingDir = '',
+    String? iconPath = '',
+    int? iconIndex = 0,
+  }) {
     // TODO: implement createShortcuts
     throw UnimplementedError();
   }

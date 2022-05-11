@@ -3,7 +3,6 @@ import 'os_spec.dart';
 import 'package:win_api/win_api.dart';
 
 class Windows extends OsSpecifications {
-
   var winApi = WinApi();
 
   Windows() {
@@ -21,7 +20,8 @@ class Windows extends OsSpecifications {
 
   @override
   String getAppLocation() {
-    var result = Process.runSync('reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
+    var result = Process.runSync(
+        'reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
     if (result.exitCode == 0) {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.trim();
@@ -32,7 +32,10 @@ class Windows extends OsSpecifications {
 
   @override
   String setVersion(String version, String filePath) {
-    Process.runSync('reg', 'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'.split(' '));
+    Process.runSync(
+        'reg',
+        'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
+            .split(' '));
     Process.runSync(
         'reg',
         'add HKCU${Platform.pathSeparator}SOFTWARE${Platform.pathSeparator}Microsoft${Platform.pathSeparator}Windows${Platform.pathSeparator}CurrentVersion${Platform.pathSeparator}Uninstall${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
@@ -43,7 +46,7 @@ class Windows extends OsSpecifications {
 
   @override
   void startProcess(String processName, [List<String> args = const []]) async {
-    switch(processName){
+    switch (processName) {
       case 'update':
         winApi.startProcess('${appDirPath}ups_update.exe', args);
         break;
@@ -66,8 +69,27 @@ class Windows extends OsSpecifications {
     return result.exitCode;
   }
 
-  int createShortCut(String pathToExe,   String pathToShortcut, {   List<String>? args = const [],   String? description = '',   int? showMode = ShowMode.NORMAL,   String? workingDir = '',   String? iconPath = '',   int? iconIndex = 0, }) {
-    winApi.createShortCut(pathToExe, pathToShortcut, args: args, description: description, iconIndex: iconIndex, iconPath: iconPath, showMode: showMode,workingDir: workingDir);
+  @override
+  int createShortCut(
+    String pathToExe,
+    String pathToShortcut, {
+    List<String>? args = const [],
+    String? description = '',
+    int? showMode = ShowMode.NORMAL,
+    String? workingDir = '',
+    String? iconPath = '',
+    int? iconIndex = 0,
+  }) {
+    winApi.createShortCut(
+      pathToExe,
+      pathToShortcut,
+      args: args,
+      description: description,
+      iconIndex: iconIndex,
+      iconPath: iconPath,
+      showMode: showMode,
+      workingDir: workingDir,
+    );
     return 0;
   }
 
