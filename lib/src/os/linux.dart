@@ -2,9 +2,10 @@ import 'dart:io';
 import 'os_spec.dart';
 
 class Linux extends OsSpecifications {
-  Linux();
+  Linux() {
+    appDirPath = '/usr/local/storageup';
+  }
 
-  String appDirPath = '/usr/local/storageup';
   static const String keeperDirPath = '/var/storageup';
   static const String keeperName = 'keeper.exe';
 

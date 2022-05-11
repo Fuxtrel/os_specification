@@ -11,7 +11,5 @@ abstract class OsSpecifications {
 
   int registerAppInOs(String appDirPath);
 
-  int createShortcuts(String appDirPath);
-
   void enableAutoBoot(String processName);
 }
