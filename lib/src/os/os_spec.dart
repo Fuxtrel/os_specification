@@ -29,8 +29,9 @@ abstract class OsSpecifications {
   );
 
   void enableAutoBoot(String processName);
+
+  static OsSpecifications getOs(){
+    return Platform.isWindows ? Windows() : Linux();
+  }
 }
 
-OsSpecifications getOs(){
-  return Platform.isWindows ? Windows() : Linux();
-}
