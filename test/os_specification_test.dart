@@ -8,9 +8,9 @@ void main() {
 
     setUp(() {});
 
-    // test('Start storageup', () {
-    //   os.startProcess('storageup');
-    // });
+    test('Start storageup', () {
+      os.startProcess('storageup');
+    });
     //
     // test('Start ups_update', () {
     //   os.startProcess('update');
