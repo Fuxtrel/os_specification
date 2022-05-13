@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:win_api/win_api.dart';
+import 'package:os_specification/os_specification.dart';
 
 abstract class OsSpecifications {
   String appDirPath = '';
@@ -27,4 +29,8 @@ abstract class OsSpecifications {
   );
 
   void enableAutoBoot(String processName);
+}
+
+OsSpecifications getOs(){
+  return Platform.isWindows ? Windows() : Linux();
 }
