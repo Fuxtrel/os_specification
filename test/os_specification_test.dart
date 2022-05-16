@@ -14,7 +14,7 @@ void main() {
     // });
 
     test('Start storageup', () {
-      var os1 = getOs();
+      var os1 = OsSpecifications.getOs();
       os1.startProcess('storageup');
     });
 
