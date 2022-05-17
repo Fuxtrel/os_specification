@@ -25,20 +25,22 @@ void main() {
   //   // });
   // });
 
-  group('Set keeper hash', (){
+  group('Set keeper hash', () {
     var os = OsSpecifications.getOs();
-
-    test('register app', (){
-      os.registerAppInOs('/home/${Platform.environment['User']}/StorageUp');
+    // var env = Platform.environment;
+    test('register app', () {
+      os.registerAppInOs('/home/${Platform.environment['USER']}/StorageUp/');
     });
-    test('set', (){
-      os.getKeeperHash();
-      expect(File('/home/${Platform.environment['User']}/StorageUp/hash').existsSync(), true);
+    test('set', () {
+      os.setKeeperHash('hash');
+      expect(
+          File('/home/${Platform.environment['USER']}/StorageUp/hash')
+              .existsSync(),
+          true);
     });
-    test('get', (){
-      var hash = os.setKeeperHash('hash');
+    test('get', () {
+      var hash = os.getKeeperHash();
       expect(hash, 'hash');
     });
   });
-
 }
