@@ -26,7 +26,7 @@ class Windows extends OsSpecifications {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.trim();
     } else {
-      return WinEnvironment.documentsFolderPath;
+      return "${Directory.current.path}${Platform.pathSeparator}";
     }
   }
 
