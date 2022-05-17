@@ -117,7 +117,7 @@ class Windows extends OsSpecifications {
   @override
   bool setKeeperHash(String hash) {
     try {
-      var file = File('$appDirPath/hash');
+      var file = File('${appDirPath}hash');
       if (!file.existsSync()) {
         file.createSync(recursive: true);
       }
