@@ -5,9 +5,13 @@ import 'os_spec.dart';
 class Linux extends OsSpecifications {
   Linux() {
     appDirPath = getAppLocation();
+    var _registryFile = File(registryFile);
+    if(!_registryFile.existsSync()){
+      _registryFile.createSync();
+    }
   }
 
-  static const String registry = '/usr/local/storageup/';
+  static const String registryFile = '/usr/local/storageup/registry';
 
   @override
   int killProcess(String processName) {
@@ -17,7 +21,7 @@ class Linux extends OsSpecifications {
 
   @override
   String getAppLocation() {
-    return File(registry).readAsStringSync().trim();
+    return File(registryFile).readAsStringSync().trim();
   }
 
   @override
@@ -45,7 +49,7 @@ class Linux extends OsSpecifications {
   @override
   int registerAppInOs(String appDirPath) {
     try {
-      var _registry = File(registry);
+      var _registry = File(registryFile);
       if (!_registry.existsSync()) {
         _registry.createSync(recursive: true);
       }
