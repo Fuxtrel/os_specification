@@ -50,6 +50,7 @@ class Linux extends OsSpecifications {
         _registry.createSync(recursive: true);
       }
       _registry.writeAsStringSync(appDirPath);
+      appDirPath = appDirPath;
       return 0;
     } catch (e) {
       return 1;
