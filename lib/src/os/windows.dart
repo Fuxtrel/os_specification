@@ -98,4 +98,34 @@ class Windows extends OsSpecifications {
         'add HKCU${Platform.pathSeparator}SOFTWARE${Platform.pathSeparator}Microsoft${Platform.pathSeparator}Windows${Platform.pathSeparator}CurrentVersion${Platform.pathSeparator}Run /v StorageUpKeeper /t REG_SZ /d $appDirPath$processName /f'
             .split(' '));
   }
+
+  @override
+  String getKeeperHash() {
+    try {
+      var file = File('$appDirPath/hash');
+      if (!file.existsSync()) {
+        return '';
+      }
+      return file.readAsStringSync();
+
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
+
+  @override
+  bool setKeeperHash(String hash) {
+    try {
+      var file = File('$appDirPath/hash');
+      if (!file.existsSync()) {
+        file.createSync(recursive: true);
+      }
+      file.writeAsStringSync(hash);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

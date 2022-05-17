@@ -4,12 +4,17 @@ import 'package:os_specification/os_specification.dart';
 
 abstract class OsSpecifications {
   String appDirPath = '';
+  static String supportDir = '';
 
   int killProcess(String processName);
 
   void startProcess(String processName, [List<String> args = const []]);
 
   String getAppLocation();
+
+  bool setKeeperHash(String hash);
+
+  String getKeeperHash();
 
   String setVersion(String version, String filePath);
 
