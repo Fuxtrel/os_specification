@@ -4,12 +4,13 @@ import 'package:win_api/win_api.dart';
 
 class Windows extends OsSpecifications {
   late final WinApi winApi;
+  String? dllLibPath;
 
-  Windows() {
+  Windows({this.dllLibPath}) {
     String result = getAppLocation();
     if (result.isNotEmpty) {
       appDirPath = result;
-      winApi = WinApi(pathToWinApiDll: '${appDirPath}lib_win_api.dll');
+      winApi = WinApi(pathToWinApiDll: (dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath);
     }
   }
 
