@@ -30,8 +30,8 @@ abstract class OsSpecifications {
 
   void enableAutoBoot(String processName);
 
-  static OsSpecifications getOs(){
-    return Platform.isWindows ? Windows() : Linux();
+  static OsSpecifications getOs({String? dllLibPath}){
+    return Platform.isWindows ? Windows(dllLibPath: dllLibPath) : Linux();
   }
 }
 
