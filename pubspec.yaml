@@ -14,5 +14,4 @@ dependencies:
       url: ssh://git@gitlab.upstorage.net:2289/a.som/win_api_module_cpp.git
 
 dev_dependencies:
-  lints: ^1.0.1
   test: ^1.21.1

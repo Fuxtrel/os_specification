@@ -54,6 +54,9 @@ class Windows extends OsSpecifications {
       case 'storageup':
         winApi.startProcess('${appDirPath}storageup.exe', args);
         break;
+      case 'all_keeper':
+        winApi.startProcess('${appDirPath}start_keeper.exe', args);
+        break;
     }
   }
 
@@ -102,7 +105,7 @@ class Windows extends OsSpecifications {
   @override
   String getKeeperHash() {
     try {
-      var file = File('$appDirPath/hash');
+      var file = File('${appDirPath}hash');
       if (!file.existsSync()) {
         return '';
       }
