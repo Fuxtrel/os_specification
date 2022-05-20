@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:os_specification/os_specification.dart';
 import 'package:test/test.dart';
+import 'dart:io';
 
 void main() {
   // group('Starting processes', () {
@@ -27,14 +26,13 @@ void main() {
 
   group('Set keeper hash', () {
     var os = OsSpecifications.getOs();
-    // var env = Platform.environment;
     test('register app', () {
-      os.registerAppInOs('/home/${Platform.environment['USER']}/StorageUp/');
+      os.registerAppInOs('/Users/${Platform.environment['USER']}/StorageUp/');
     });
     test('set', () {
       os.setKeeperHash('hash');
       expect(
-          File('/home/${Platform.environment['USER']}/StorageUp/hash')
+          File('/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Library/Application Support/com.example.upstorageDesktop/hash')
               .existsSync(),
           true);
     });
@@ -43,4 +41,6 @@ void main() {
       expect(hash, 'hash');
     });
   });
+
+
 }
