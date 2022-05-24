@@ -3,7 +3,7 @@ import 'dart:io';
 
 class MacOs extends OsSpecifications {
   MacOs() {
-    appDirPath = '/Users/${Platform.environment['USER']}/Library/Application Support/StorageUp/';
+    appDirPath = '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Documents';
   }
 
   static String supportDir = '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Library/Application Support/com.example.upstorageDesktop/';
