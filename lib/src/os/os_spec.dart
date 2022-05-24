@@ -4,7 +4,7 @@ import 'package:os_specification/os_specification.dart';
 abstract class OsSpecifications {
   String appDirPath = '';
   static String supportDir = '';
-  final Directory tmpDir = Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
+  static final Directory tmpDir = Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
 
   int killProcess(String processName);
 
@@ -35,7 +35,7 @@ abstract class OsSpecifications {
 
   static OsSpecifications getOs({String? dllLibPath}) {
     if (Platform.isWindows) {
-      return Windows(dllLibPath: dllLibPath);
+      return Windows(dllLibPath: dllLibPath?? "${OsSpecifications.tmpDir.path}\\lib_win_api.dll");
     } else if(Platform.isLinux){
       return Linux();
     } else if(Platform.isMacOS){

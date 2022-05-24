@@ -41,7 +41,7 @@ void main() {
       expect(hash, 'hash');
     });
     test('tmp directory', (){
-      print(os.tmpDir);
+      print(OsSpecifications.tmpDir);
     });
   }, onPlatform: {
     "linux": [Skip('Its windows cases')],
