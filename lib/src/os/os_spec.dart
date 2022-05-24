@@ -5,7 +5,7 @@ abstract class OsSpecifications {
   String appDirPath = '';
   static String supportDir = '';
   static final Directory tmpDir = (Platform.isWindows)
-      ? Directory("C:\\Temp\\Storageup")
+      ? Directory("C:\\Temp\\StorageUp")
       : Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
 
   int killProcess(String processName);
