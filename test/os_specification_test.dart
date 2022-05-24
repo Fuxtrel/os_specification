@@ -40,7 +40,11 @@ void main() {
       var hash = os.getKeeperHash();
       expect(hash, 'hash');
     });
+    test('tmp directory', (){
+      print(os.tmpDir);
+    });
+  }, onPlatform: {
+    "linux": [Skip('Its windows cases')],
+    "windows": [Skip('Its windows cases')],
   });
-
-
 }

@@ -1,11 +1,10 @@
 import 'dart:io';
-import 'package:os_specification/src/os/macos.dart';
-import 'package:win_api/win_api.dart';
 import 'package:os_specification/os_specification.dart';
 
 abstract class OsSpecifications {
   String appDirPath = '';
   static String supportDir = '';
+  final Directory tmpDir = Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
 
   int killProcess(String processName);
 
