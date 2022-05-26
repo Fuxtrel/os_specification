@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:os_specification/os_specification.dart';
 import 'dart:io';
 
 class MacOs extends OsSpecifications {
   MacOs() {
-    appDirPath = '/Users/${Platform.environment['USER']}/Library/Application Support/StorageUp/';
+    appDirPath =
+        '/Users/${Platform.environment['USER']}/Library/Application Support/StorageUp/';
   }
 
-  static String supportDir = '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Library/Application Support/com.example.upstorageDesktop/';
-
+  static String supportDir =
+      '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Library/Application Support/com.example.upstorageDesktop/';
 
   @override
   int killProcess(String processName) {
@@ -44,15 +47,15 @@ class MacOs extends OsSpecifications {
 
   @override
   int createShortCut(
-      String pathToExe,
-      String pathToShortcut, {
-        List<String> args = const [],
-        String description = '',
-        int showMode = ShowMode.NORMAL,
-        String workingDir = '',
-        String iconPath = '',
-        int iconIndex = 0,
-      }) {
+    String pathToExe,
+    String pathToShortcut, {
+    List<String> args = const [],
+    String description = '',
+    int showMode = ShowMode.NORMAL,
+    String workingDir = '',
+    String iconPath = '',
+    int iconIndex = 0,
+  }) {
     // TODO: implement createShortcuts
     throw UnimplementedError();
   }
@@ -70,7 +73,6 @@ class MacOs extends OsSpecifications {
         return '';
       }
       return file.readAsStringSync();
-
     } catch (e) {
       print(e);
       return '';
@@ -78,13 +80,13 @@ class MacOs extends OsSpecifications {
   }
 
   @override
-  bool setKeeperHash(String hash) {
+  bool setKeeperHash(String mail, String hash) {
     try {
       var file = File('${supportDir}hash');
       if (!file.existsSync()) {
         file.createSync(recursive: true);
       }
-      file.writeAsStringSync(hash);
+      file.writeAsStringSync(json.encode({'hash': hash, 'email': mail}));
       return true;
     } catch (e) {
       print(e);

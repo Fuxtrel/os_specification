@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:win_api/win_api.dart';
 import 'os_spec.dart';
@@ -98,13 +99,13 @@ class Linux extends OsSpecifications {
   }
 
   @override
-  bool setKeeperHash(String hash) {
+  bool setKeeperHash(String mail, String hash) {
     try {
       var file = File('${appDirPath}hash');
       if (!file.existsSync()) {
         file.createSync(recursive: true);
       }
-      file.writeAsStringSync(hash);
+      file.writeAsStringSync(json.encode({'hash': hash, 'email': mail}));
       return true;
     } catch (e) {
       print(e);

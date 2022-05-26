@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'os_spec.dart';
 import 'package:win_api/win_api.dart';
@@ -10,7 +11,10 @@ class Windows extends OsSpecifications {
     String result = getAppLocation();
     if (result.isNotEmpty) {
       appDirPath = result;
-      winApi = WinApi(pathToWinApiDll: (dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath);
+      winApi = WinApi(
+          pathToWinApiDll: (dllLibPath == null)
+              ? '${appDirPath}lib_win_api.dll'
+              : dllLibPath);
     }
   }
 
@@ -22,7 +26,10 @@ class Windows extends OsSpecifications {
 
   @override
   String getAppLocation() {
-    var result = Process.runSync('reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
+    var result = Process.runSync(
+        'reg',
+        'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'
+            .split(' '));
     if (result.exitCode == 0) {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.trim();
@@ -33,7 +40,10 @@ class Windows extends OsSpecifications {
 
   @override
   String setVersion(String version, String filePath) {
-    Process.runSync('reg', 'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'.split(' '));
+    Process.runSync(
+        'reg',
+        'add HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
+            .split(' '));
     Process.runSync(
         'reg',
         'add HKCU${Platform.pathSeparator}SOFTWARE${Platform.pathSeparator}Microsoft${Platform.pathSeparator}Windows${Platform.pathSeparator}CurrentVersion${Platform.pathSeparator}Uninstall${Platform.pathSeparator}StorageUp /v DisplayVersion /t REG_SZ /d $version /f'
@@ -110,7 +120,6 @@ class Windows extends OsSpecifications {
         return '';
       }
       return file.readAsStringSync();
-
     } catch (e) {
       print(e);
       return '';
@@ -118,13 +127,13 @@ class Windows extends OsSpecifications {
   }
 
   @override
-  bool setKeeperHash(String hash) {
+  bool setKeeperHash(String mail, String hash) {
     try {
       var file = File('${appDirPath}hash');
       if (!file.existsSync()) {
         file.createSync(recursive: true);
       }
-      file.writeAsStringSync(hash);
+      file.writeAsStringSync(json.encode({'hash': hash, 'email': mail}));
       return true;
     } catch (e) {
       print(e);

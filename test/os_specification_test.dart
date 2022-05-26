@@ -32,7 +32,7 @@ void main() {
       os.registerAppInOs('/home/${Platform.environment['USER']}/StorageUp/');
     });
     test('set', () {
-      os.setKeeperHash('hash');
+      os.setKeeperHash('mail', 'hash');
       expect(
           File('/home/${Platform.environment['USER']}/StorageUp/hash')
               .existsSync(),

@@ -12,7 +12,7 @@ abstract class OsSpecifications {
 
   String getAppLocation();
 
-  bool setKeeperHash(String hash);
+  bool setKeeperHash(String mail, String hash);
 
   String getKeeperHash();
 
@@ -21,22 +21,19 @@ abstract class OsSpecifications {
   int registerAppInOs(String appDirPath);
 
   int createShortCut(
-      String pathToExe,
-      String pathToShortcut,
-      {
-        List<String> args = const [],
-        String description = '',
-        int showMode = ShowMode.NORMAL,
-        String workingDir = '',
-        String iconPath = '',
-        int iconIndex = 0,
-      }
-  );
+    String pathToExe,
+    String pathToShortcut, {
+    List<String> args = const [],
+    String description = '',
+    int showMode = ShowMode.NORMAL,
+    String workingDir = '',
+    String iconPath = '',
+    int iconIndex = 0,
+  });
 
   void enableAutoBoot(String processName);
 
-  static OsSpecifications getOs({String? dllLibPath}){
+  static OsSpecifications getOs({String? dllLibPath}) {
     return Platform.isWindows ? Windows(dllLibPath: dllLibPath) : Linux();
   }
 }
-
