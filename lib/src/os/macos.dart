@@ -5,8 +5,7 @@ import 'dart:io';
 
 class MacOs extends OsSpecifications {
   MacOs() {
-    appDirPath =
-        '/Users/${Platform.environment['USER']}/Library/Application Support/StorageUp/';
+    appDirPath = '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Documents';
   }
 
   static String supportDir =
@@ -31,12 +30,17 @@ class MacOs extends OsSpecifications {
 
   @override
   void startProcess(String processName, [List<String> args = const []]) {
-    //TODO
-    // if (hide) {
-    //   Process.runSync('nohup', ['$appDirPath${Platform.pathSeparator}$keeperName &']);
-    // } else {
-    //   Process.runSync('$appDirPath${Platform.pathSeparator}$keeperName', []);
-    // }
+    switch (processName) {
+      case 'storageup':
+        Process.runSync('${appDirPath}/storageup', args);
+        break;
+      case 'keeper':
+        Process.runSync('${appDirPath}/keeper&', args);
+        break;
+      case 'update':
+        Process.runSync('${appDirPath}/ups_update&', args);
+        break;
+    }
   }
 
   //TODO: create method, registers app in linux

@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:win_api/win_api.dart';
 import 'package:os_specification/os_specification.dart';
 
 abstract class OsSpecifications {
   String appDirPath = '';
   static String supportDir = '';
+  static final Directory tmpDir = (Platform.isWindows)
+      ? Directory("C:\\Temp\\StorageUp")
+      : Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
 
   int killProcess(String processName);
 
@@ -34,6 +36,14 @@ abstract class OsSpecifications {
   void enableAutoBoot(String processName);
 
   static OsSpecifications getOs({String? dllLibPath}) {
-    return Platform.isWindows ? Windows(dllLibPath: dllLibPath) : Linux();
+    if (Platform.isWindows) {
+      return Windows(dllLibPath: dllLibPath ?? "${OsSpecifications.tmpDir.path}\\lib_win_api.dll");
+    } else if (Platform.isLinux) {
+      return Linux();
+    } else if (Platform.isMacOS) {
+      return MacOs();
+    } else {
+      throw Exception();
+    }
   }
 }
