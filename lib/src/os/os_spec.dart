@@ -46,7 +46,7 @@ abstract class OsSpecifications {
 
   static OsSpecifications getOs({String? dllLibPath}) {
     if (Platform.isWindows) {
-      return Windows(dllLibPath: dllLibPath ?? "${OsSpecifications.tmpDir.path}\\lib_win_api.dll");
+      return Windows(dllLibPath: dllLibPath);
     } else if (Platform.isLinux) {
       return Linux();
     } else if (Platform.isMacOS) {
