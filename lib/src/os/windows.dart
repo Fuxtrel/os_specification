@@ -11,6 +11,7 @@ class Windows extends OsSpecifications {
     String result = getAppLocation();
     if (result.isNotEmpty) {
       appDirPath = result;
+      print("Path to dll: ${(dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath}");
       winApi = WinApi(pathToWinApiDll: (dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath);
     }
   }
