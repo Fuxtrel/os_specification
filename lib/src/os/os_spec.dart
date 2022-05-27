@@ -22,6 +22,15 @@ abstract class OsSpecifications {
 
   int registerAppInOs(String appDirPath);
 
+  double getWinScreenScale(){
+    if(Platform.isWindows) {
+      return Windows().winApi.getScreenGian();
+    }else{
+      Exception("Not correct os to use [getWinScreenScale]");
+      return -1;
+    }
+  }
+
   int createShortCut(
     String pathToExe,
     String pathToShortcut, {
