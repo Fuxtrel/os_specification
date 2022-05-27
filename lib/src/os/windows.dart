@@ -11,10 +11,7 @@ class Windows extends OsSpecifications {
     String result = getAppLocation();
     if (result.isNotEmpty) {
       appDirPath = result;
-      winApi = WinApi(
-          pathToWinApiDll: (dllLibPath == null)
-              ? '${appDirPath}lib_win_api.dll'
-              : dllLibPath);
+      winApi = WinApi(pathToWinApiDll: (dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath);
     }
   }
 
@@ -27,9 +24,7 @@ class Windows extends OsSpecifications {
   @override
   String getAppLocation() {
     var result = Process.runSync(
-        'reg',
-        'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'
-            .split(' '));
+        'reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
     if (result.exitCode == 0) {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.trim();
@@ -74,7 +69,7 @@ class Windows extends OsSpecifications {
   int registerAppInOs(String appDirPath) {
     var result = Process.runSync(
         'start',
-        '/min C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}'
+        '/min C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
             .split(' '),
         runInShell: true);
     return result.exitCode;
