@@ -69,9 +69,11 @@ class Windows extends OsSpecifications {
   int registerAppInOs(String appDirPath) {
     var result = Process.runSync(
         'start',
-        '/min C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
+        '/min C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat'
+                ' $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
             .split(' '),
         runInShell: true);
+    appDirPath = getAppLocation();
     return result.exitCode;
   }
 
