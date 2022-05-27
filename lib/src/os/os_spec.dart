@@ -22,9 +22,9 @@ abstract class OsSpecifications {
 
   int registerAppInOs(String appDirPath);
 
-  double getWinScreenScale(){
+  double getWinScreenScale({String? pathToDll}){
     if(Platform.isWindows) {
-      return Windows().winApi.getScreenGian();
+      return Windows(dllLibPath: pathToDll).winApi.getScreenGian();
     }else{
       Exception("Not correct os to use [getWinScreenScale]");
       return -1;
