@@ -67,11 +67,11 @@ class Windows extends OsSpecifications {
   }
 
   @override
-  int registerAppInOs(String appDirPath) {
+  int registerAppInOs(String _appDirPath) {
     var result = Process.runSync(
         'start',
         '/min C:${Platform.pathSeparator}temp${Platform.pathSeparator}StorageUp${Platform.pathSeparator}install.bat'
-                ' $appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
+                ' $_appDirPath${Platform.pathSeparator}StorageUp${Platform.pathSeparator}'
             .split(' '),
         runInShell: true);
     appDirPath = getAppLocation();
