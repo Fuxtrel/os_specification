@@ -112,4 +112,24 @@ class Linux extends OsSpecifications {
       return false;
     }
   }
+
+  @override
+  String? getKeeperVersion() {
+    var keeperVersionFile = File('${appDirPath}keeper_version');
+    if (!keeperVersionFile.existsSync()) {
+      return null;
+    } else {
+      return keeperVersionFile.readAsStringSync().trim();
+    }
+  }
+
+  @override
+  String? getUiVersion() {
+    var uiVersionFile = File('${appDirPath}ui_version.txt');
+    if (!uiVersionFile.existsSync()) {
+      return null;
+    } else {
+      return uiVersionFile.readAsStringSync().trim();
+    }
+  }
 }

@@ -5,7 +5,8 @@ import 'dart:io';
 
 class MacOs extends OsSpecifications {
   MacOs() {
-    appDirPath = '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Documents';
+    appDirPath =
+        '/Users/${Platform.environment['USER']}/Library/Containers/com.example.upstorageDesktop/Data/Documents';
   }
 
   static String supportDir =
@@ -95,6 +96,26 @@ class MacOs extends OsSpecifications {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  @override
+  String? getKeeperVersion() {
+    var keeperVersionFile = File('${appDirPath}keeper_version');
+    if (!keeperVersionFile.existsSync()) {
+      return null;
+    } else {
+      return keeperVersionFile.readAsStringSync().trim();
+    }
+  }
+
+  @override
+  String? getUiVersion() {
+    var uiVersionFile = File('${appDirPath}ui_version.txt');
+    if (!uiVersionFile.existsSync()) {
+      return null;
+    } else {
+      return uiVersionFile.readAsStringSync().trim();
     }
   }
 }

@@ -6,7 +6,8 @@ abstract class OsSpecifications {
   static String supportDir = '';
   static final Directory tmpDir = (Platform.isWindows)
       ? Directory("C:\\Temp\\StorageUp")
-      : Directory('${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
+      : Directory(
+          '${Directory.systemTemp.path}${Platform.pathSeparator}StorageUp');
 
   int killProcess(String processName);
 
@@ -22,10 +23,14 @@ abstract class OsSpecifications {
 
   int registerAppInOs(String appDirPath);
 
-  double getWinScreenScale({String? pathToDll}){
-    if(Platform.isWindows) {
+  String? getKeeperVersion();
+
+  String? getUiVersion();
+
+  double getWinScreenScale({String? pathToDll}) {
+    if (Platform.isWindows) {
       return Windows(dllLibPath: pathToDll).winApi.getScreenGian();
-    }else{
+    } else {
       Exception("Not correct os to use [getWinScreenScale]");
       return -1;
     }

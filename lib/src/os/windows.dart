@@ -11,8 +11,12 @@ class Windows extends OsSpecifications {
     String result = getAppLocation();
     if (result.isNotEmpty) {
       appDirPath = result;
-      print("Path to dll: ${(dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath}");
-      winApi = WinApi(pathToWinApiDll: (dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath);
+      print(
+          "Path to dll: ${(dllLibPath == null) ? '${appDirPath}lib_win_api.dll' : dllLibPath}");
+      winApi = WinApi(
+          pathToWinApiDll: (dllLibPath == null)
+              ? '${appDirPath}lib_win_api.dll'
+              : dllLibPath);
     }
   }
 
@@ -25,7 +29,9 @@ class Windows extends OsSpecifications {
   @override
   String getAppLocation() {
     var result = Process.runSync(
-        'reg', 'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'.split(' '));
+        'reg',
+        'query HKCU${Platform.pathSeparator}Software${Platform.pathSeparator}StorageUp /v DirPath'
+            .split(' '));
     if (result.exitCode == 0) {
       String dirPath = result.stdout.split(' ').last;
       return dirPath.trim();
@@ -136,6 +142,26 @@ class Windows extends OsSpecifications {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  @override
+  String? getKeeperVersion() {
+    var keeperVersionFile = File('${appDirPath}keeper_version');
+    if (!keeperVersionFile.existsSync()) {
+      return null;
+    } else {
+      return keeperVersionFile.readAsStringSync().trim();
+    }
+  }
+
+  @override
+  String? getUiVersion() {
+    var uiVersionFile = File('${appDirPath}ui_version.txt');
+    if (!uiVersionFile.existsSync()) {
+      return null;
+    } else {
+      return uiVersionFile.readAsStringSync().trim();
     }
   }
 }
